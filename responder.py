@@ -10,13 +10,13 @@ def main():
         dst_ip = packet[IP][0].dst
 
         dport = packet.sport
-        SeqNr = packet.seq
-        AckNr = packet.seq + 1
+        sequence = packet.seq
+        ack = packet.seq + 1 
 
-        ip=IP(src=dst_ip, dst=src_ip)
-        TCP_SYNACK=TCP(sport=a[0].dport, dport=dport, flags="SA", seq=SeqNr, ack=AckNr, options=[('MSS', 1460)])
+        ip = IP(src=dst_ip, dst=src_ip)
+        synack = TCP(sport=a[0].dport, dport=dport, flags="SA", seq=sequence, ack=ack)
 
-        ack = sendp(ip/TCP_SYNACK)
+        ack = sendp(ip/synack)
 
 if __name__ == "__main__":
     main()
